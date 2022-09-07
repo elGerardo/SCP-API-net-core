@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="scp_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="class">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="scps" Relationship="Self.FK__scp__class_id__2F10007B" FromRole="classes" ToRole="scp" />
+  </EntityType>
+  <EntityType Name="feature">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="scp_id" Type="Int32" Nullable="false" />
+    <Property Name="short_description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="full_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="color" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="height" Type="Double" />
+    <Property Name="width" Type="Double" />
+    <Property Name="weight" Type="Double" />
+    <NavigationProperty Name="scps" Relationship="Self.FK__scp__feature_id__30F848ED" FromRole="features" ToRole="scp" />
+  </EntityType>
+  <EntityType Name="scp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="scp_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="feeling" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="picture" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="class_id" Type="Int32" Nullable="false" />
+    <Property Name="type_id" Type="Int32" Nullable="false" />
+    <Property Name="feature_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="class" Relationship="Self.FK__scp__class_id__2F10007B" FromRole="scp" ToRole="classes" />
+    <NavigationProperty Name="feature" Relationship="Self.FK__scp__feature_id__30F848ED" FromRole="scp" ToRole="features" />
+    <NavigationProperty Name="type" Relationship="Self.FK__scp__type_id__300424B4" FromRole="scp" ToRole="types" />
+  </EntityType>
+  <EntityType Name="scp_skills">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="scp_id" Type="Int32" Nullable="false" />
+    <Property Name="skill_id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="skill">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="icon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="type">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="scps" Relationship="Self.FK__scp__type_id__300424B4" FromRole="types" ToRole="scp" />
+  </EntityType>
+  <Association Name="FK__scp__class_id__2F10007B">
+    <End Role="classes" Type="Self.class" Multiplicity="1" />
+    <End Role="scp" Type="Self.scp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__scp__feature_id__30F848ED">
+    <End Role="features" Type="Self.feature" Multiplicity="1" />
+    <End Role="scp" Type="Self.scp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="features">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp">
+        <PropertyRef Name="feature_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__scp__type_id__300424B4">
+    <End Role="types" Type="Self.type" Multiplicity="1" />
+    <End Role="scp" Type="Self.scp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp">
+        <PropertyRef Name="type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="scp_databaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="classes" EntityType="Self.class" />
+    <EntitySet Name="features" EntityType="Self.feature" />
+    <EntitySet Name="scps" EntityType="Self.scp" />
+    <EntitySet Name="scp_skills" EntityType="Self.scp_skills" />
+    <EntitySet Name="skills" EntityType="Self.skill" />
+    <EntitySet Name="types" EntityType="Self.type" />
+    <AssociationSet Name="FK__scp__class_id__2F10007B" Association="Self.FK__scp__class_id__2F10007B">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="scp" EntitySet="scps" />
+    </AssociationSet>
+    <AssociationSet Name="FK__scp__feature_id__30F848ED" Association="Self.FK__scp__feature_id__30F848ED">
+      <End Role="features" EntitySet="features" />
+      <End Role="scp" EntitySet="scps" />
+    </AssociationSet>
+    <AssociationSet Name="FK__scp__type_id__300424B4" Association="Self.FK__scp__type_id__300424B4">
+      <End Role="types" EntitySet="types" />
+      <End Role="scp" EntitySet="scps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

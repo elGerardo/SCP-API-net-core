@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="scp_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="classes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="features">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="scp_id" Type="int" Nullable="false" />
+          <Property Name="short_description" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="full_description" Type="text" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="height" Type="float" />
+          <Property Name="width" Type="float" />
+          <Property Name="weight" Type="float" />
+        </EntityType>
+        <EntityType Name="scp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="scp_link" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="feeling" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="picture" Type="varchar" MaxLength="255" />
+          <Property Name="class_id" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="feature_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="scp_skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="scp_id" Type="int" Nullable="false" />
+          <Property Name="skill_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="icon" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__scp__class_id__2F10007B">
+          <End Role="classes" Type="Self.classes" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__scp__feature_id__30F848ED">
+          <End Role="features" Type="Self.features" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="features">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="feature_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__scp__type_id__300424B4">
+          <End Role="types" Type="Self.types" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="scp_databaseModelStoreContainer">
+          <EntitySet Name="classes" EntityType="Self.classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="features" EntityType="Self.features" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="scp" EntityType="Self.scp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="scp_skills" EntityType="Self.scp_skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="skills" EntityType="Self.skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="types" EntityType="Self.types" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__scp__class_id__2F10007B" Association="Self.FK__scp__class_id__2F10007B">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="scp" EntitySet="scp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__scp__feature_id__30F848ED" Association="Self.FK__scp__feature_id__30F848ED">
+            <End Role="features" EntitySet="features" />
+            <End Role="scp" EntitySet="scp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__scp__type_id__300424B4" Association="Self.FK__scp__type_id__300424B4">
+            <End Role="types" EntitySet="types" />
+            <End Role="scp" EntitySet="scp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="scp_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="scps" Relationship="Self.FK__scp__class_id__2F10007B" FromRole="classes" ToRole="scp" />
+        </EntityType>
+        <EntityType Name="feature">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="scp_id" Type="Int32" Nullable="false" />
+          <Property Name="short_description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="height" Type="Double" />
+          <Property Name="width" Type="Double" />
+          <Property Name="weight" Type="Double" />
+          <NavigationProperty Name="scps" Relationship="Self.FK__scp__feature_id__30F848ED" FromRole="features" ToRole="scp" />
+        </EntityType>
+        <EntityType Name="scp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="scp_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feeling" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="picture" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="class_id" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="feature_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="class" Relationship="Self.FK__scp__class_id__2F10007B" FromRole="scp" ToRole="classes" />
+          <NavigationProperty Name="feature" Relationship="Self.FK__scp__feature_id__30F848ED" FromRole="scp" ToRole="features" />
+          <NavigationProperty Name="type" Relationship="Self.FK__scp__type_id__300424B4" FromRole="scp" ToRole="types" />
+        </EntityType>
+        <EntityType Name="scp_skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="scp_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="icon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="scps" Relationship="Self.FK__scp__type_id__300424B4" FromRole="types" ToRole="scp" />
+        </EntityType>
+        <Association Name="FK__scp__class_id__2F10007B">
+          <End Role="classes" Type="Self.class" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__scp__feature_id__30F848ED">
+          <End Role="features" Type="Self.feature" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="features">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="feature_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__scp__type_id__300424B4">
+          <End Role="types" Type="Self.type" Multiplicity="1" />
+          <End Role="scp" Type="Self.scp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scp">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="scp_databaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="classes" EntityType="Self.class" />
+          <EntitySet Name="features" EntityType="Self.feature" />
+          <EntitySet Name="scps" EntityType="Self.scp" />
+          <EntitySet Name="scp_skills" EntityType="Self.scp_skills" />
+          <EntitySet Name="skills" EntityType="Self.skill" />
+          <EntitySet Name="types" EntityType="Self.type" />
+          <AssociationSet Name="FK__scp__class_id__2F10007B" Association="Self.FK__scp__class_id__2F10007B">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="scp" EntitySet="scps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__scp__feature_id__30F848ED" Association="Self.FK__scp__feature_id__30F848ED">
+            <End Role="features" EntitySet="features" />
+            <End Role="scp" EntitySet="scps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__scp__type_id__300424B4" Association="Self.FK__scp__type_id__300424B4">
+            <End Role="types" EntitySet="types" />
+            <End Role="scp" EntitySet="scps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="scp_databaseModelStoreContainer" CdmEntityContainer="scp_databaseEntities">
+          <EntitySetMapping Name="classes">
+            <EntityTypeMapping TypeName="scp_databaseModel.class">
+              <MappingFragment StoreEntitySet="classes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="features">
+            <EntityTypeMapping TypeName="scp_databaseModel.feature">
+              <MappingFragment StoreEntitySet="features">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+                <ScalarProperty Name="short_description" ColumnName="short_description" />
+                <ScalarProperty Name="full_description" ColumnName="full_description" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scps">
+            <EntityTypeMapping TypeName="scp_databaseModel.scp">
+              <MappingFragment StoreEntitySet="scp">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="scp_link" ColumnName="scp_link" />
+                <ScalarProperty Name="feeling" ColumnName="feeling" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="feature_id" ColumnName="feature_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scp_skills">
+            <EntityTypeMapping TypeName="scp_databaseModel.scp_skills">
+              <MappingFragment StoreEntitySet="scp_skills">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+                <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skills">
+            <EntityTypeMapping TypeName="scp_databaseModel.skill">
+              <MappingFragment StoreEntitySet="skills">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types">
+            <EntityTypeMapping TypeName="scp_databaseModel.type">
+              <MappingFragment StoreEntitySet="types">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
