@@ -176,3 +176,10 @@ D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\obj\Debug\api_scp_net.csproj.CoreC
 D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\obj\Debug\api_scp_net.csproj.CopyComplete
 D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\obj\Debug\api_scp_net.dll
 D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\obj\Debug\api_scp_net.pdb
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\ServiceStack.Interfaces.dll
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\System.Threading.Tasks.Extensions.dll
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\Microsoft.Bcl.AsyncInterfaces.xml
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\MI MUNDO\Proyectos\api_scp_net\api_scp_net\bin\System.Threading.Tasks.Extensions.xml

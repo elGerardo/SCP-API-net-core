@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SCPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="classes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="icon" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="features">
+    <Key>
+      <PropertyRef Name="scp_id" />
+    </Key>
+    <Property Name="scp_id" Type="int" Nullable="false" />
+    <Property Name="short_description" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="full_description" Type="varchar(max)" Nullable="false" />
+    <Property Name="color" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="height" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="width" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="weight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="interviews">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="scp_id" Type="int" />
+    <Property Name="interview_date" Type="datetime" Nullable="false" />
+    <Property Name="transcription" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="scp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="scp_link" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="feeling" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="picture" Type="varchar" MaxLength="255" />
+    <Property Name="class_id" Type="int" />
+    <Property Name="type_id" Type="int" />
+    <Property Name="feature_id" Type="int" />
+  </EntityType>
+  <EntityType Name="scp_enemies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="scp_id" Type="int" Nullable="false" />
+    <Property Name="scp_enemy_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="scp_skills">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="scp_id" Type="int" Nullable="false" />
+    <Property Name="skll_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="skills">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_features_scp">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="features" Type="Self.features" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="features">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_interviews_scp">
+    <End Role="scp" Type="Self.scp" Multiplicity="0..1" />
+    <End Role="interviews" Type="Self.interviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interviews">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_classes">
+    <End Role="classes" Type="Self.classes" Multiplicity="0..1" />
+    <End Role="scp" Type="Self.scp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_enemies_scp">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="scp_enemies" Type="Self.scp_enemies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_enemies">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_enemies_scp_02">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="scp_enemies" Type="Self.scp_enemies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_enemies">
+        <PropertyRef Name="scp_enemy_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_skills_scp">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="scp_skills" Type="Self.scp_skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_skills">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_skills_skills">
+    <End Role="skills" Type="Self.skills" Multiplicity="1" />
+    <End Role="scp_skills" Type="Self.scp_skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skills">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_skills">
+        <PropertyRef Name="skll_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_scp_types">
+    <End Role="types" Type="Self.types" Multiplicity="0..1" />
+    <End Role="scp" Type="Self.scp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp">
+        <PropertyRef Name="type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SCPModelStoreContainer">
+    <EntitySet Name="classes" EntityType="Self.classes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="features" EntityType="Self.features" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="interviews" EntityType="Self.interviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="scp" EntityType="Self.scp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="scp_enemies" EntityType="Self.scp_enemies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="scp_skills" EntityType="Self.scp_skills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="skills" EntityType="Self.skills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="types" EntityType="Self.types" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_features_scp" Association="Self.FK_features_scp">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="features" EntitySet="features" />
+    </AssociationSet>
+    <AssociationSet Name="FK_interviews_scp" Association="Self.FK_interviews_scp">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="interviews" EntitySet="interviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_classes" Association="Self.FK_scp_classes">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="scp" EntitySet="scp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_enemies_scp" Association="Self.FK_scp_enemies_scp">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="scp_enemies" EntitySet="scp_enemies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_enemies_scp_02" Association="Self.FK_scp_enemies_scp_02">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="scp_enemies" EntitySet="scp_enemies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_skills_scp" Association="Self.FK_scp_skills_scp">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="scp_skills" EntitySet="scp_skills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_skills_skills" Association="Self.FK_scp_skills_skills">
+      <End Role="skills" EntitySet="skills" />
+      <End Role="scp_skills" EntitySet="scp_skills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_scp_types" Association="Self.FK_scp_types">
+      <End Role="types" EntitySet="types" />
+      <End Role="scp" EntitySet="scp" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

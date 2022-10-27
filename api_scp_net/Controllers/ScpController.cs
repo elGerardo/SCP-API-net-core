@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Data.Entity; 
+using System.Data.Entity;
 
 namespace api_scp_net.Controllers
 {
@@ -13,63 +13,41 @@ namespace api_scp_net.Controllers
     {
 
         // db constructor
-        private scp_databaseEntities db = new scp_databaseEntities();
+       private SCPEntities db = new SCPEntities();
+
+        /*------------------SCP ROUTES------------------*/
 
         [HttpGet]
-        [Route("api/v1/all")]
-        public IHttpActionResult getAll()
+        [Route("api/v1/scp/all")]
+        public IHttpActionResult all([FromUri] int limit = 20)
         {
             try
             {
-                List<IScp> data = db.scps.Select( s => new IScp() 
-                { 
-                    id = s.id,
-                    name = s.name,
-                    feeling = s.feeling,
-                    picture = s.picture,
-                    class_id = db.classes.Where(w => w.id == s.class_id)
-                    .Select(e => new IClasses()
-                    {
-                        id = e.id,
-                        name = e.name,
-                        description = e.description
-                    }
-                    ).ToList(),
-                    type_id = s.type_id,
-                    feature_id = s.feature_id
-                } ).ToList();
-
-                return Ok(data);
-            }catch(Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet]
-        [Route("api/v1/scp/{scpId}")]
-        public IHttpActionResult getById(int scpId)
-        {
-            try
-            {
-
-                List<IScp> data = db.scps.Select( s => new IScp()
+                List<IScp> data = db.scp.Select( s => new IScp()
                 {
                     id = s.id,
                     name = s.name,
                     feeling = s.feeling,
                     picture = s.picture,
-                    class_id = db.classes.Where( w => w.id == s.class_id)
-                    .Select( e => new IClasses()
+                    classe = new IBaseNameFeature(){ 
+                        name = s.classes.name,
+                        description = s.classes.description
+                    },
+                    type = new IBaseNameFeature()
                     {
-                        id = e.id,
-                        name = e.name,
-                        description = e.description
+                        name = s.types.name,
+                        description = s.types.description
+                    },
+                    features = new IFeatures()
+                    {
+                        short_description = s.features.short_description,
+                        full_description = s.features.full_description,
+                        color = s.features.color,
+                        height = s.features.height,
+                        width = s.features.width,
+                        weight = s.features.weight
                     }
-                    ).ToList(),
-                    type_id = s.type_id,
-                    feature_id = s.feature_id
-                }).Where( w => w.id == scpId).ToList();
+                } ).Take(limit).ToList();
 
                 return Ok(data);
 
@@ -80,29 +58,37 @@ namespace api_scp_net.Controllers
         }
 
         [HttpGet]
-        [Route("api/v1/{firstId}/{lastId}")]
-        public IHttpActionResult getByIdRange(int firstId, int lastId)
+        [Route("api/v1/scp/find")]
+        public IHttpActionResult find([FromUri] int scp)
         {
             try
             {
-
-                List<IScp> data = db.scps.Select(s => new IScp()
+                IScp data = db.scp.Select(s => new IScp()
                 {
                     id = s.id,
                     name = s.name,
                     feeling = s.feeling,
                     picture = s.picture,
-                    class_id = db.classes.Where(w => w.id == s.class_id)
-                   .Select(e => new IClasses()
-                   {
-                       id = e.id,
-                       name = e.name,
-                       description = e.description
-                   }
-                   ).ToList(),
-                    type_id = s.type_id,
-                    feature_id = s.feature_id
-                }).Where(w => w.id >= firstId && w.id <= lastId).ToList();
+                    classe = new IBaseNameFeature()
+                    {
+                        name = s.classes.name,
+                        description = s.classes.description
+                    },
+                    type = new IBaseNameFeature()
+                    {
+                        name = s.types.name,
+                        description = s.types.description
+                    },
+                    features = new IFeatures()
+                    {
+                        short_description = s.features.short_description,
+                        full_description = s.features.full_description,
+                        color = s.features.color,
+                        height = s.features.height,
+                        width = s.features.width,
+                        weight = s.features.weight
+                    }
+                }).Where(w => w.id == scp).FirstOrDefault();
 
                 return Ok(data);
 
@@ -112,5 +98,93 @@ namespace api_scp_net.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/v1/scp/range")]
+        public IHttpActionResult getByIdRange([FromUri] int first, [FromUri] int last)
+        {
+            try
+            {
+                List<IScp> data = db.scp.Select(s => new IScp()
+                {
+                    id = s.id,
+                    name = s.name,
+                    feeling = s.feeling,
+                    picture = s.picture,
+                    classe = new IBaseNameFeature()
+                    {
+                        name = s.classes.name,
+                        description = s.classes.description
+                    },
+                    type = new IBaseNameFeature()
+                    {
+                        name = s.types.name,
+                        description = s.types.description
+                    },
+                    features = new IFeatures()
+                    {
+                        short_description = s.features.short_description,
+                        full_description = s.features.full_description,
+                        color = s.features.color,
+                        height = s.features.height,
+                        width = s.features.width,
+                        weight = s.features.weight
+                    }
+                }).Where(w => w.id >= first && w.id <= last).ToList();
+
+                return Ok(data);
+
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/v1/scp/enemies")]
+        public IHttpActionResult getEnemies([FromUri] int scp)
+        {
+            try
+            {
+                IBaseEnemies data = new IBaseEnemies()
+                {
+                    scp = scp,
+                    enemies = db.scp_enemies.Select(s => new IEnemies()
+                    {
+                        scp_enemy = s.scp_enemy_id,
+                        name = s.scp.name,
+                        scp_link = s.scp.scp_link
+                    }).ToList(),
+            };
+                return Ok(data);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        /*------------------CLASSES ROUTES------------------*/
+        /*
+        [HttpGet]
+        [Route("api/v1/allClasses")]
+        public IHttpActionResult getAllClasses()
+        {
+            try
+            {
+                List<IClasses> data = db.classes.Select(s => new IClasses()
+                {
+                    id = s.id,
+                    name = s.name,
+                    description = s.description
+                }).ToList();
+
+                return Ok(data);
+
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        */
     }
 }

@@ -21,6 +21,15 @@
     <Property Name="width" Type="float" />
     <Property Name="weight" Type="float" />
   </EntityType>
+  <EntityType Name="interviews">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="scp_id" Type="int" Nullable="false" />
+    <Property Name="interview_date" Type="datetime" Nullable="false" />
+    <Property Name="transcription" Type="text" Nullable="false" />
+  </EntityType>
   <EntityType Name="scp">
     <Key>
       <PropertyRef Name="id" />
@@ -33,6 +42,14 @@
     <Property Name="class_id" Type="int" Nullable="false" />
     <Property Name="type_id" Type="int" Nullable="false" />
     <Property Name="feature_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="scp_enemies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="scp_id" Type="int" Nullable="false" />
+    <Property Name="scp_enemy_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="scp_skills">
     <Key>
@@ -59,6 +76,18 @@
     <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
   </EntityType>
+  <Association Name="FK__interview__scp_i__3A81B327">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="interviews" Type="Self.interviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interviews">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__scp__class_id__2F10007B">
     <End Role="classes" Type="Self.classes" Multiplicity="1" />
     <End Role="scp" Type="Self.scp" Multiplicity="*" />
@@ -95,13 +124,43 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__scp_enemi__scp_e__36B12243">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="scp_enemies" Type="Self.scp_enemies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_enemies">
+        <PropertyRef Name="scp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__scp_enemi__scp_e__37A5467C">
+    <End Role="scp" Type="Self.scp" Multiplicity="1" />
+    <End Role="scp_enemies" Type="Self.scp_enemies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="scp">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="scp_enemies">
+        <PropertyRef Name="scp_enemy_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="scp_databaseModelStoreContainer">
     <EntitySet Name="classes" EntityType="Self.classes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="features" EntityType="Self.features" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="interviews" EntityType="Self.interviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="scp" EntityType="Self.scp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="scp_enemies" EntityType="Self.scp_enemies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="scp_skills" EntityType="Self.scp_skills" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="skills" EntityType="Self.skills" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="types" EntityType="Self.types" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__interview__scp_i__3A81B327" Association="Self.FK__interview__scp_i__3A81B327">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="interviews" EntitySet="interviews" />
+    </AssociationSet>
     <AssociationSet Name="FK__scp__class_id__2F10007B" Association="Self.FK__scp__class_id__2F10007B">
       <End Role="classes" EntitySet="classes" />
       <End Role="scp" EntitySet="scp" />
@@ -113,6 +172,14 @@
     <AssociationSet Name="FK__scp__type_id__300424B4" Association="Self.FK__scp__type_id__300424B4">
       <End Role="types" EntitySet="types" />
       <End Role="scp" EntitySet="scp" />
+    </AssociationSet>
+    <AssociationSet Name="FK__scp_enemi__scp_e__36B12243" Association="Self.FK__scp_enemi__scp_e__36B12243">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="scp_enemies" EntitySet="scp_enemies" />
+    </AssociationSet>
+    <AssociationSet Name="FK__scp_enemi__scp_e__37A5467C" Association="Self.FK__scp_enemi__scp_e__37A5467C">
+      <End Role="scp" EntitySet="scp" />
+      <End Role="scp_enemies" EntitySet="scp_enemies" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

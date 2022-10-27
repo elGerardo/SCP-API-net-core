@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a594032910248ae91ed3c640bd49c84" Name="Diagram1">
+        <EntityTypeShape EntityType="SCPModel.classes" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SCPModel.features" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="SCPModel.interviews" Width="1.5" PointX="5.25" PointY="2.75" />
+        <EntityTypeShape EntityType="SCPModel.scp" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="SCPModel.scp_enemies" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="SCPModel.scp_skills" Width="1.5" PointX="5.25" PointY="8.75" />
+        <EntityTypeShape EntityType="SCPModel.skills" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="SCPModel.types" Width="1.5" PointX="0.75" PointY="2.875" />
+        <AssociationConnector Association="SCPModel.FK_scp_classes" />
+        <AssociationConnector Association="SCPModel.FK_features_scp" />
+        <AssociationConnector Association="SCPModel.FK_interviews_scp" />
+        <AssociationConnector Association="SCPModel.FK_scp_enemies_scp" />
+        <AssociationConnector Association="SCPModel.FK_scp_enemies_scp_02" />
+        <AssociationConnector Association="SCPModel.FK_scp_skills_scp" />
+        <AssociationConnector Association="SCPModel.FK_scp_types" />
+        <AssociationConnector Association="SCPModel.FK_scp_skills_skills" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

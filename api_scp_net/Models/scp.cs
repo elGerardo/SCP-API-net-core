@@ -14,17 +14,34 @@ namespace api_scp_net.Models
     
     public partial class scp
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public scp()
+        {
+            this.interviews = new HashSet<interviews>();
+            this.scp_enemies = new HashSet<scp_enemies>();
+            this.scp_enemies1 = new HashSet<scp_enemies>();
+            this.scp_skills = new HashSet<scp_skills>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public string scp_link { get; set; }
         public string feeling { get; set; }
         public string picture { get; set; }
-        public int class_id { get; set; }
-        public int type_id { get; set; }
-        public int feature_id { get; set; }
+        public Nullable<int> class_id { get; set; }
+        public Nullable<int> type_id { get; set; }
+        public Nullable<int> feature_id { get; set; }
     
-        public virtual @class @class { get; set; }
-        public virtual feature feature { get; set; }
-        public virtual type type { get; set; }
+        public virtual classes classes { get; set; }
+        public virtual features features { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<interviews> interviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<scp_enemies> scp_enemies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<scp_enemies> scp_enemies1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<scp_skills> scp_skills { get; set; }
+        public virtual types types { get; set; }
     }
 }

@@ -16,6 +16,9 @@ namespace api_scp_net.Models
     {
         public int id { get; set; }
         public int scp_id { get; set; }
-        public int skill_id { get; set; }
+        public int skll_id { get; set; }
+    
+        public virtual scp scp { get; set; }
+        public virtual skills skills { get; set; }
     }
 }

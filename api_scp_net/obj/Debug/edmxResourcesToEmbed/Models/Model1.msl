@@ -4,65 +4,84 @@
     <EntitySetMapping Name="classes">
       <EntityTypeMapping TypeName="scp_databaseModel.class">
         <MappingFragment StoreEntitySet="classes">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="features">
       <EntityTypeMapping TypeName="scp_databaseModel.feature">
         <MappingFragment StoreEntitySet="features">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
-          <ScalarProperty Name="short_description" ColumnName="short_description" />
-          <ScalarProperty Name="full_description" ColumnName="full_description" />
-          <ScalarProperty Name="color" ColumnName="color" />
-          <ScalarProperty Name="height" ColumnName="height" />
-          <ScalarProperty Name="width" ColumnName="width" />
           <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="width" ColumnName="width" />
+          <ScalarProperty Name="height" ColumnName="height" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="full_description" ColumnName="full_description" />
+          <ScalarProperty Name="short_description" ColumnName="short_description" />
+          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="scps">
       <EntityTypeMapping TypeName="scp_databaseModel.scp">
         <MappingFragment StoreEntitySet="scp">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="scp_link" ColumnName="scp_link" />
-          <ScalarProperty Name="feeling" ColumnName="feeling" />
-          <ScalarProperty Name="picture" ColumnName="picture" />
-          <ScalarProperty Name="class_id" ColumnName="class_id" />
-          <ScalarProperty Name="type_id" ColumnName="type_id" />
           <ScalarProperty Name="feature_id" ColumnName="feature_id" />
+          <ScalarProperty Name="type_id" ColumnName="type_id" />
+          <ScalarProperty Name="class_id" ColumnName="class_id" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="feeling" ColumnName="feeling" />
+          <ScalarProperty Name="scp_link" ColumnName="scp_link" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="scp_skills">
       <EntityTypeMapping TypeName="scp_databaseModel.scp_skills">
         <MappingFragment StoreEntitySet="scp_skills">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
           <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="skills">
       <EntityTypeMapping TypeName="scp_databaseModel.skill">
         <MappingFragment StoreEntitySet="skills">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="icon" ColumnName="icon" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="types">
       <EntityTypeMapping TypeName="scp_databaseModel.type">
         <MappingFragment StoreEntitySet="types">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="interviews">
+      <EntityTypeMapping TypeName="scp_databaseModel.interview">
+        <MappingFragment StoreEntitySet="interviews">
+          <ScalarProperty Name="transcription" ColumnName="transcription" />
+          <ScalarProperty Name="interview_date" ColumnName="interview_date" />
+          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="scp_enemies">
+      <EntityTypeMapping TypeName="scp_databaseModel.scp_enemies">
+        <MappingFragment StoreEntitySet="scp_enemies">
+          <ScalarProperty Name="scp_enemy_id" ColumnName="scp_enemy_id" />
+          <ScalarProperty Name="scp_id" ColumnName="scp_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
